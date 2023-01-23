@@ -1,0 +1,48 @@
+google review fetching using php
+========================================
+
+
+To fetch Google reviews using PHP, you can use the Google Places API. The Places API allows you to search for places and retrieve information about them, including reviews. To get started, you will need to:
+
+Create a project in the Google Cloud Console and enable the Places API.
+
+Obtain an API key for your project.
+
+Use the PHP client library for the Places API to make requests to the API.
+
+Here is an example of how you can use the Places API to fetch reviews for a place:
+
+=================================================================================================================================================================================================================================
+
+
+<?php
+// require the Places API library
+require_once 'path/to/google-api-php-client/src/Google/autoload.php';
+
+// set your API key
+$apiKey = 'YOUR_API_KEY';
+
+// create a new client
+$client = new Google_Client();
+$client->setApplicationName('MyApp');
+$client->setDeveloperKey($apiKey);
+
+// create a new Places service
+$service = new Google_Service_Places($client);
+
+// set the place ID for the place you want to fetch reviews for
+$placeId = 'ChIJN1t_tDeuEmsRUsoyG83frY4';
+
+// fetch the reviews
+$reviews = $service->placeReviews->listPlaceReviews($placeId);
+
+// loop through the reviews
+foreach ($reviews as $review) {
+    echo $review->author_name . ' said: ' . $review->text;
+}
+?>
+
+============================================================================================================
+
+Note that you need to provide the Place ID of the location for which you want to fetch reviews. you can use the place search API to get the place ID
+Also, you need to make sure that the API is enabled and you have billing setup on your project.

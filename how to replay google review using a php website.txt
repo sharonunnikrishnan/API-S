@@ -1,0 +1,45 @@
+how to replay google review using a php website
+=====================================================
+
+To reply to a Google review using a PHP website, you can use the Google My Business API. The My Business API allows you to manage your business listings on Google, including replying to reviews. To get started, you will need to:
+
+Create a project in the Google Cloud Console and enable the My Business API.
+
+Obtain an API key for your project.
+
+Use the PHP client library for the My Business API to make requests to the API.
+
+Here is an example of how you can use the My Business API to reply to a review:
+
+=====================================================================================================================================================================================================================================================
+
+<?php
+require_once __DIR__ . '/vendor/autoload.php';
+
+$apiKey = 'YOUR_API_KEY';
+
+$client = new Google_Client();
+$client->setDeveloperKey($apiKey);
+
+$service = new Google_Service_Mybusiness($client);
+
+$locationName = 'ACCOUNT_NAME/location/LOCATION_ID';
+$reviewId = 'REVIEW_ID';
+$text = 'Thank you for your feedback. We appreciate your support.';
+
+$reviewReply = new Google_Service_Mybusiness_ReviewReply();
+$reviewReply->setText($text);
+
+$response = $service->accounts_locations_reviews->reply($locationName, $reviewId, $reviewReply);
+
+print_r($response);
+?>
+
+
+==============================================================================================================================================================================
+
+
+You need to provide your account name, location ID, and review ID to the API, also you need to make sure that you have the credentials to access the API.
+Also, you need to make sure that the API is enabled and you have billing setup on your project.
+
+It's worth noting that Google review reply feature is not available for all the accounts, you may need to apply for the feature via Google to be able to reply to reviews via API.
